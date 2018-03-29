@@ -11,5 +11,5 @@ echo "tag=${CACHE_TAG}"
 
 # Write the tag to package.json>version so that "renovate --version" is correct
 
-sed -i.bak 's/0.0.0-semantic-release/${CACHE_TAG}/' package.json
+sed -i.bak "s/0.0.0-semantic-release/${CACHE_TAG}/" package.json
 rm -f package.json.back
