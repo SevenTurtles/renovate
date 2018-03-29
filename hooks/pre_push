@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -e
-
-sed -i.bak 's/0.0.0-semantic-release/1.2.6/' package.json
-rm -f package.json.back
