@@ -91,9 +91,12 @@ describe('api/npm', () => {
     nock('https://registry.npmjs.org')
       .get('/foobar')
       .reply(429);
+    nock('https://registry.npmjs.org')
+      .get('/foobar')
+      .reply(429);
     let e;
     try {
-      await npm.getDependency('foobar');
+      await npm.getDependency('foobar', 1);
     } catch (err) {
       e = err;
     }
@@ -205,7 +208,8 @@ describe('api/npm', () => {
       .get('/foobar')
       .reply(200, npmResponse);
     npm.setNpmrc(
-      'registry=https://npm.mycustomregistry.com/\n//npm.mycustomregistry.com/:_auth = abcdef'
+      'registry=https://npm.mycustomregistry.com/\n//npm.mycustomregistry.com/:_auth = ' +
+        Buffer.from('abcdef').toString('base64')
     );
     const res = await npm.getDependency('foobar');
     expect(res).toMatchSnapshot();
